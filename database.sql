@@ -1,0 +1,6 @@
+CREATE TABLE officials (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    position VARCHAR(50) NOT NULL,
+    image_path VARCHAR(255) NOT NULL
+);

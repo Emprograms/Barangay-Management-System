@@ -1,12 +1,8 @@
-<script>
-    document.querySelector('form').onsubmit = function(e) {
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        const errorMessage = document.getElementById('error-message');
+function toggleForms() {
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
 
-        if (username === '' || password === '') {
-            e.preventDefault(); // Prevent form submission
-            errorMessage.textContent = 'Please fill in all fields.';
-        }
-    };
-</script>
+    loginForm.classList.toggle('hidden');
+    registerForm.classList.toggle('hidden');
+}
+

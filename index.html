@@ -2,31 +2,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Login/Register</title>
-    <link rel="stylesheet" href="style.css">
-    
+    <title>User Registration and Login</title>
 </head>
 <body>
-    
-    <div class="container">
-        <div class="form-container">
-            <form id="loginForm" class="form">
-                <h2>Login</h2>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
-                <button type="submit">Login</button>
-                <p>Don't have an account? <a href="#" onclick="toggleForms()">Register</a></p>
-            </form>
-            <form id="registerForm" class="form hidden">
-                <h2>Register</h2>
-                <input type="text" placeholder="Username" required>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
-                <button type="submit">Register</button>
-                <p>Already have an account? <a href="#" onclick="toggleForms()">Login</a></p>
-            </form>
-        </div>
-    </div>
-    <script src="start.js"></script>
-</body> 
+    <h2>Registration</h2>
+    <form action="/register" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Register</button>
+    </form>
+
+    <h2>Login</h2>
+    <form action="/login" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Login</button>
+    </form>
+</body>
 </html>

@@ -1,26 +1,186 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration and Login</title>
-</head>
-<body>
-    <h2>Registration</h2>
-    <form action="/register" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Register</button>
-    </form>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Barangay Portal — Demo</title>
+  <link rel="stylesheet" href="styles.css" />
 
-    <h2>Login</h2>
-    <form action="/login" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Login</button>
-    </form>
+  <!-- Login background styles -->
+  <style>
+    /* Apply a full-viewport background for the auth/login page.
+       NOTE: The Facebook URL provided is a page URL and may not load as a direct image.
+       Recommended: download the image and place it at assets/login-bg.jpg and use the local fallback below. */
+    body.auth-bg {
+      min-height: 100vh;
+      margin: 0;
+      background-image: url("assets/muni.jpg");
+      /* fallback / recommended local file (uncomment and use if you add the image to repo):
+         background-image: url("assets/login-bg.jpg"); */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* darkish overlay so content is readable */
+    body.auth-bg::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.35), rgba(0,0,0,0.55));
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ensure main content sits above overlay */
+    main.container {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* make the card slightly translucent and add backdrop blur for readability */
+    .card {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(6px);
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      padding: 20px;
+      max-width: 420px;
+      width: 95%;
+    }
+
+    /* tighten spacing for the auth area on small screens */
+    @media (max-width: 640px) {
+      .card { padding: 16px; }
+    }
+  </style>
+</head>
+<body class="auth-bg">
+  
+  <main class="container">
+    <!-- Auth area -->
+    <section id="auth" class="card">
+      <div class="tabs">
+        <button id="show-login" class="active">Login</button>
+        <button id="show-register">Register</button>
+      </div>
+
+      <div id="login-form" class="form">
+        <h2>Login</h2>
+        <label>Email</label>
+        <input id="login-email" type="email" placeholder="you@example.com" />
+        <label>Password</label>
+        <input id="login-password" type="password" placeholder="password" />
+        <button id="login-btn" class="primary">Login</button>
+        <p class="hint">No account? <a href="#" id="go-register">Register here</a></p>
+      </div>
+
+      <div id="register-form" class="form hidden">
+        <h2>Register</h2>
+        <label>Full name</label>
+        <input id="reg-name" type="text" placeholder="Juan Dela Cruz" />
+        <label>Email</label>
+        <input id="reg-email" type="email" placeholder="you@example.com" />
+        <label>Password</label>
+        <input id="reg-password" type="password" placeholder="password" />
+        <button id="register-btn" class="primary">Register</button>
+        <p class="hint">Already have an account? <a href="#" id="go-login">Login</a></p>
+      </div>
+    </section>
+<style>
+    /* Apply a full-viewport background for the auth/login page.
+       NOTE: The Facebook URL provided is a page URL and may not load as a direct image.
+       Recommended: download the image and place it at assets/login-bg.jpg and use the local fallback below. */
+    body.auth-bg {
+      min-height: 100vh;
+      margin: 0;
+      background-image: url("assets/muni.jpg");
+      /* fallback / recommended local file (uncomment and use if you add the image to repo):
+         background-image: url("assets/login-bg.jpg"); */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* darkish overlay so content is readable */
+    body.auth-bg::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.35), rgba(0,0,0,0.55));
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ensure main content sits above overlay */
+    main.container {
+      position: relative;
+      z-index: 1;
+    }
+    <!-- Dashboard -->
+    <section id="dashboard" class="hidden">
+      <header class="topbar">
+        <h1>Barangay Officials</h1>
+        <div class="top-actions">
+          <div class="hamburger" id="hamburger" title="Menu" aria-label="Menu">
+            <div></div><div></div><div></div>
+          </div>
+          <button id="logout-btn" class="secondary">Logout</button>
+        </div>
+        <nav id="burger-menu" class="menu hidden">
+          <ul>
+            <li data-view="updates">Accomplishments</li>
+            <li data-view="ongoing">Ongoing Projects</li>
+            <li data-view="permit">Permit Cost</li>
+            <li data-view="clearance">Barangay Clearance</li>
+            <li data-view="certificate">Barangay Certificate</li>
+            <li data-view="certificate">Cedula</li>
+            <li data-view="certificate">Certificate of Indigency</li>
+          </ul>
+        </nav>
+      </header>
+
+      <div class="content">
+        <aside class="officials" id="officials-list">
+          <!-- Officials populated by JS -->
+        </aside>
+
+        <section class="panel" id="panel">
+          <h2 id="panel-title">Welcome</h2>
+          <div id="panel-body">
+            <p>Welcome to the Barangay Portal demo. Use the menu (top-right) to view sections.</p>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+
+  <!-- Small helper to remove the auth-bg class after login and add it back on logout.
+       This keeps the background only on the login/registration view. -->
+  <script>
+    // Remove background when user clicks "Login" (adjust if your app handles auth differently)
+    const loginBtn = document.getElementById('login-btn');
+    if (loginBtn) {
+      loginBtn.addEventListener('click', () => {
+        document.body.classList.remove('auth-bg');
+      });
+    }
+
+    // Add background back on logout button click
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        document.body.classList.add('auth-bg');
+      });
+    }
+  </script>
 </body>
 </html>
